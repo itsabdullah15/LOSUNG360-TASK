@@ -3,7 +3,7 @@ import aiohttp
 import random
 import pandas as pd
 from playwright.async_api import async_playwright
-from constant import FILE_PATH
+from constant import FILE_PATH,OUTPUT_FILE_PATH
 from get_data import ASIN,product_name, original_price, discounted_price, product_rating
 import csv
 
@@ -46,7 +46,7 @@ async def extract_product_info(page, url, session):
 
 
      # Write data to CSV file
-    with open('Output.csv', 'a', newline='') as csvfile:
+    with open(OUTPUT_FILE_PATH, 'a', newline='') as csvfile:
         fieldnames = ['URL','ASIN', 'PRODUCT_NAME', 'ORIGINAL_PRICE', 'DISCOUNTED_PRICE', 'PRODUCT_RATING']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
