@@ -47,20 +47,23 @@ async def extract_product_info(page, url, session):
 
      # Write data to CSV file
     with open(OUTPUT_FILE_PATH, 'a', newline='') as csvfile:
-        fieldnames = ['URL','ASIN', 'PRODUCT_NAME', 'ORIGINAL_PRICE', 'DISCOUNTED_PRICE', 'PRODUCT_RATING']
+        fieldnames = ['URL', 'ASIN', 'PRODUCT_NAME', 'ORIGINAL_PRICE', 'DISCOUNTED_PRICE', 'PRODUCT_RATING']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-         # Write headers if file is empty
+        # Write headers if file is empty
         if csvfile.tell() == 0:
             writer.writeheader()
 
-        writer.writerow({
+        # Fill None values with "None" before writing to CSV
+        data_to_write = {
             'URL': url,
-            'ASIN': Amazon_Standard_Identification_Number,
-            'PRODUCT_NAME': PRODUCT_NAME,
-            'ORIGINAL_PRICE': ORIGINAL_PRICE,
-            'DISCOUNTED_PRICE': DISCOUNTED_PRICE,
-            'PRODUCT_RATING': PRODUCT_RATING
-        })
+            'ASIN': Amazon_Standard_Identification_Number if Amazon_Standard_Identification_Number is not None else "None",
+            'PRODUCT_NAME': PRODUCT_NAME if PRODUCT_NAME is not None else "None",
+            'ORIGINAL_PRICE': ORIGINAL_PRICE if ORIGINAL_PRICE is not None else "None",
+            'DISCOUNTED_PRICE': DISCOUNTED_PRICE if DISCOUNTED_PRICE is not None else "None",
+            'PRODUCT_RATING': PRODUCT_RATING if PRODUCT_RATING is not None else "None"
+        }
+        
+        writer.writerow(data_to_write)
 
 asyncio.run(open_urls(extracted_urls))
