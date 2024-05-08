@@ -18,3 +18,4 @@ Additionally, the project utilizes concurrency in Python through asyncio and aio
 - Additional dependencies:
   - `constant.py` containing constants like `FILE_PATH`, `OUTPUT_FILE_PATH`,`ORIGINAL_PRICE_XPATH`, `DISCOUNT_PRICE_XPATH`, `PRODUCT_PRICE_XPATH`, `ASIN_REGEX` and `PRODUCT_NAME_REGEX`.
   - `get_data.py` containing functions for extracting data like `ASIN`, `product_name`, `original_price`, `discounted_price`, `product_rating`.
+- The output data is saved in `Output.csv` file.
