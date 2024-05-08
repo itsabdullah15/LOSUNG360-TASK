@@ -21,17 +21,18 @@ async def open_urls(extracted_urls):
 
 async def process_url(url, browser, session):
     page = await browser.new_page()
-    await page.set_viewport_size({"width": 1920, "height": 1080})
-    await page.goto(url)
+    await page.set_viewport_size({"width": 1920, "height": 1080}) #set browser viewport size
+    await page.goto(url) #opening browser
     await asyncio.sleep(random.uniform(2, 5))
     try:
         await extract_product_info(page, url, session)
     except Exception as e:
         print(f"Error processing {url}: {e}")
     finally:
-        await page.close()
+        await page.close() #Closing browser
 
 async def extract_product_info(page, url, session):
+    #Calling Function to extract the information
     Amazon_Standard_Identification_Number = await ASIN(page, url)
     PRODUCT_NAME = await product_name(page, url)
     ORIGINAL_PRICE = await original_price(page)
